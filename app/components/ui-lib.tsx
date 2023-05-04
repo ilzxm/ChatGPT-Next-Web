@@ -231,11 +231,11 @@ export function PasswordInput(props: HTMLProps<HTMLInputElement>) {
 
   return (
     <div className={"password-input-container"}>
-      <IconButton
+      {/*      <IconButton
         icon={visible ? <EyeIcon /> : <EyeOffIcon />}
         onClick={changeVisibility}
         className={"password-eye"}
-      />
+      />*/}
       <input
         {...props}
         type={visible ? "text" : "password"}
