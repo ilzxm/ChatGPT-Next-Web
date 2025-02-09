@@ -8,7 +8,7 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/api/auth";
-import { isModelAvailableInServer } from "@/app/utils/model";
+import { isModelNotavailableInServer } from "@/app/utils/model";
 
 const serverConfig = getServerSideConfig();
 
@@ -56,9 +56,12 @@ async function request(req: NextRequest) {
   console.log("[Proxy] ", path);
   console.log("[Base Url]", baseUrl);
 
-  const timeoutId = setTimeout(() => {
-    controller.abort();
-  }, 10 * 60 * 1000);
+  const timeoutId = setTimeout(
+    () => {
+      controller.abort();
+    },
+    10 * 60 * 1000,
+  );
 
   const fetchUrl = `${baseUrl}${path}`;
 
@@ -85,7 +88,7 @@ async function request(req: NextRequest) {
 
       // not undefined and is false
       if (
-        isModelAvailableInServer(
+        isModelNotavailableInServer(
           serverConfig.customModels,
           jsonBody?.model as string,
           ServiceProvider.ByteDance as string,
